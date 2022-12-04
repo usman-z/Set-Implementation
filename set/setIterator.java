@@ -1,5 +1,10 @@
 package set;
 
+/**
+ * 
+ * @author Usman
+ * @param <T> is the type
+ */
 public class setIterator<T> {
 
     Node<T> current;    // Current position
