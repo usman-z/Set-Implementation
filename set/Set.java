@@ -47,6 +47,52 @@ public class Set {
         System.out.print("The union is: ");
         SetContainer s1OrTest = s1.union(s2);
         s1OrTest.print();
+        
+        System.out.println("--------------");
+        
+        System.out.print("The cardinality of s1 is: ");
+        int s1Card = s1.getCardinality();
+        System.out.println(s1Card);
+        
+        System.out.print("The cardinality of s2 is: ");
+        int s2Card = s2.getCardinality();
+        System.out.println(s2Card);
+        
+        System.out.println("--------------");
+        
+        System.out.print("The last node of s1 is: ");
+        Node s1Find = s1.findLast();
+        System.out.println(s1Find);
+        
+        System.out.print("The last node of s2 is: ");
+        Node s2Find = s2.findLast();
+        System.out.println(s2Find);
+        
+        System.out.println("--------------");
+        
+        System.out.print("s1 Contains 29: ");
+        boolean s1Con = s1.contains(29);
+        System.out.println(s1Con);
+        
+        System.out.print("s2 Contains 29: ");
+        boolean s2Con = s2.contains(29);
+        System.out.println(s2Con);
+        
+        System.out.println("--------------");
+        
+        System.out.println("Testing clear and inserting new: ");
+        
+        s1.print();
+        
+        s1.clear();
+        
+        s1.print();
+        
+        s1.insert(90);
+        s1.insert(15);
+        s1.insert(44);
+        
+        s1.print();
     }
     
     
