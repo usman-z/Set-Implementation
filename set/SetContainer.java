@@ -3,6 +3,11 @@ package set;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * 
+ * @author Usman
+ * @param <T> is the type
+ */
 public class SetContainer <T extends Comparable> {
 
     private int cardinality; // the size of Set
@@ -18,6 +23,7 @@ public class SetContainer <T extends Comparable> {
     
     /**
      * Arg constructor
+     *@param element is the element
      */    
     public SetContainer(T element) {
         this.cardinality = 1;
@@ -96,6 +102,7 @@ public class SetContainer <T extends Comparable> {
 
     /**
      * 
+     * @param newElement is the new element
      */
     public void insert(T newElement){
         if (!contains(newElement)) {
@@ -115,7 +122,8 @@ public class SetContainer <T extends Comparable> {
     }
     
     /**
-     * 
+     *
+     * @return is the reference
      */    
     public Node<T> findLast() {
         Node<T> ref = header;
@@ -135,7 +143,9 @@ public class SetContainer <T extends Comparable> {
     
 
     /**
-     * 
+     *
+     * @param testElement is the test element
+     * @return true if contains the test element, otherwise return false
      */
     public boolean contains(T testElement) {
         Node<T> ref = header;
@@ -154,7 +164,7 @@ public class SetContainer <T extends Comparable> {
     }
 
     /**
-     * 
+     * Clear the cardinality and header
      */
     public void clear() {
         cardinality = 0;
@@ -163,6 +173,7 @@ public class SetContainer <T extends Comparable> {
 
     /**
      * 
+     * @return is the cardinality
      */
     public int getCardinality() {
         return this.cardinality;
@@ -184,7 +195,11 @@ public class SetContainer <T extends Comparable> {
         }
         System.out.println();
     }
-    
+   
+    /**
+     * 
+     * @return header if null, otherwise return the sorted array
+     */
     private Node<T> sort(){
         ArrayList<T> array = new ArrayList();
         Node<T> head = this.header;
@@ -199,12 +214,23 @@ public class SetContainer <T extends Comparable> {
         }
     }
     
+    /**
+     * 
+     * @param array is the array
+     * @return is the answer
+     */
     private Node<T> node(ArrayList<T> array){
         Node<T> answer = new Node<>();
         nodeHelper(array, answer);
         return answer;
     }
 
+    /**
+     * 
+     * @param array is the array
+     * @param answer is the answer
+     * @return is the node helper
+     */
     private Node<T> nodeHelper(ArrayList<T> array, Node<T> answer){
         if(array.isEmpty()){
             return null;
@@ -224,6 +250,11 @@ public class SetContainer <T extends Comparable> {
 
     }
 
+    /**
+     * 
+     * @param head is the header
+     * @param array is the array
+     */
     private void assignArray(Node<T> head, ArrayList<T> array){
         if(head == null){
             return;
@@ -240,6 +271,11 @@ public class SetContainer <T extends Comparable> {
 
     }
 
+    /**
+     * 
+     * @param array is the array
+     * @return is the answer
+     */
     private ArrayList fixArray(ArrayList<T> array){
         ArrayList<T> answer = new ArrayList<>();
 
