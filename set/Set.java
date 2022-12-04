@@ -10,7 +10,7 @@ public class Set {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SetContainer s1 = new SetContainer(10);
+        SetContainer s1 = new SetContainer();
         try {
             s1.insert(1);
             s1.insert(5);
@@ -24,7 +24,7 @@ public class Set {
 
         s1.print();
 
-        SetContainer s2 = new SetContainer(10);
+        SetContainer s2 = new SetContainer();
         try {
             s2.insert(77);
             s2.insert(38);
@@ -39,10 +39,18 @@ public class Set {
 
         s2.print();
         
-        SetContainer test = new SetContainer(2);
+        SetContainer test = new SetContainer();
         test.insert(5);
         test.insert(10);
+        test.insert(77);
         
+        test.print();
+        
+        System.out.println("--------------");
+        
+        SetContainer s1AndTest = s1.union(test);
+        
+        s1AndTest.print();
     }
     
     

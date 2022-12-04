@@ -20,5 +20,9 @@ public class Node<T> {
     public Node(T newElement, Node<T> newNext){
         this.element = newElement;
         this.next = newNext;
-    } 
+    }
+    
+    public String toString(){
+        return this.element + "";
+    }
 }

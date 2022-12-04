@@ -17,7 +17,7 @@ public class SetContainer <T extends Comparable> {
      * Arg constructor
      */    
     public SetContainer(T element) {
-        this.cardinality++;
+        this.cardinality = 1;
         header = new Node<>(element);
     }
     
@@ -26,37 +26,29 @@ public class SetContainer <T extends Comparable> {
      *
      * @param set to take the union with
      * @return the union of the two sets
-     * @throws SetException
      */
-//    public SetContainer union(SetContainer set) throws SetException {
-//        SetContainer unionSet = new SetContainer();
-//
-//        int marker1 = 0, marker2 = 0;
-//
-//        while (marker1 < this.cardinality && marker2 < set.cardinality) {
-//            if (elements[marker1] < set.elements[marker1]) {
-//                unionSet.insert(elements[marker1]);
-//                marker1++;
-//            } else if (elements[marker1] == set.elements[marker2]) {
-//                unionSet.insert(elements[marker1]);
-//                marker1++;
-//                marker2++;                                                        NEED TO FIX!
-//            } else {
-//                unionSet.insert(set.elements[marker2]);
-//                marker2++;
-//            }
-//        }
-//
-//        for (; marker1 < cardinality; marker1++) {
-//            unionSet.insert(elements[marker1]);
-//        }
-//
-//        for (; marker2 < set.cardinality; marker2++) {
-//            unionSet.insert(set.elements[marker2]);
-//        }
-//
-//        return unionSet;
-//    }
+    public SetContainer union(SetContainer set){
+        SetContainer unionSet = new SetContainer();
+        Node<T> ref = this.header;
+
+        while (ref!= null && ref.element != null) {
+            if(!unionSet.contains(ref.element)){
+                unionSet.insert(ref.element);
+            }
+            ref = ref.next;
+        }
+
+        ref = set.header;
+
+        while (ref!= null && ref.element != null) {
+            if(!unionSet.contains(ref.element)){
+                unionSet.insert(ref.element);
+            }
+            ref = ref.next;
+        }
+
+        return unionSet;
+    }
 
     /**
      *
@@ -65,14 +57,14 @@ public class SetContainer <T extends Comparable> {
      * @throws SetException
      */
 //    public SetContainer intersection(SetContainer set) throws SetException {
-//        SetContainer intersectionSet = new SetContainer(Math.min(this.cardinality, set.cardinality));
+//        SetContainer intersectionSet = new SetContainer();
 //
 //        int marker1 = 0, marker2 = 0;
 //
 //        while (marker1 < this.cardinality || marker2 < set.cardinality) {
 //            if (this.elements[marker1] < set.elements[marker2]) {
 //                marker1++;
-//            } else if (this.elements[marker1] == set.elements[marker2]) {         NEED TO FIX!
+//            } else if (this.elements[marker1] == set.elements[marker2]) { 
 //                intersectionSet.insert(this.elements[marker1]);
 //                marker1++;
 //                marker2++;
@@ -92,7 +84,14 @@ public class SetContainer <T extends Comparable> {
         if (!contains(newElement)) {
             Node<T> ref = findLast();
             
-            ref.next = new Node<>(newElement);
+            if(ref.element == null){
+                ref.element = newElement;
+                this.cardinality++;
+            }
+            else{
+                ref.next = new Node<>(newElement);
+                this.cardinality++;                
+            }
         }
     }
     
@@ -102,8 +101,13 @@ public class SetContainer <T extends Comparable> {
     public Node<T> findLast() {
         Node<T> ref = header;
 
-        while(ref != null && ref.element != null && ref.next != null){
-            ref = ref.next;
+        while(ref.element != null){
+            
+            if(ref.next != null)
+                ref = ref.next;
+            else
+                break;
+            
         }
 
         return ref;
@@ -115,12 +119,16 @@ public class SetContainer <T extends Comparable> {
      * 
      */
     public boolean contains(T testElement) {
-
-        while (header != null && header.element != null) {
-            if (header.element.compareTo(testElement) == 0)
+        Node<T> ref = header;
+        
+        while (ref.element != null) {
+            if (ref.element.compareTo(testElement) == 0)
                 return true;
             
-            header = header.next;
+            if(ref.next != null)
+                ref = ref.next;
+            else
+                break;
         }
         
         return false;
@@ -131,7 +139,7 @@ public class SetContainer <T extends Comparable> {
      */
     public void clear() {
         cardinality = 0;
-        header = null;
+        header = new Node<>(null);
     }
 
     /**
@@ -145,9 +153,15 @@ public class SetContainer <T extends Comparable> {
      * Print the content of the set
      */
     public void print() {
-        while (header != null && header.element != null) {
-            System.out.print(header.element + " ");
-            header = header.next;
+        Node<T> ref = header;
+        
+        while (ref.element != null) {
+            System.out.print(ref.element + " ");
+            
+            if(ref.next != null)
+                ref = ref.next;
+            else
+                break;
         }
         System.out.println();
     }
