@@ -32,25 +32,21 @@ public class Set {
             s2.insert(29);
             s2.insert(45);
             s2.insert(6);
-            s2.insert(33);
+            s2.insert(34);
         } catch (SetException e) {
             System.out.println(e.toString());
         }
 
         s2.print();
         
-        SetContainer test = new SetContainer();
-        test.insert(5);
-        test.insert(10);
-        test.insert(77);
-        
-        test.print();
-        
         System.out.println("--------------");
-        
-        SetContainer s1AndTest = s1.union(test);
-        
+        System.out.print("The intersection is: ");
+        SetContainer s1AndTest = s1.intersection(s2);
         s1AndTest.print();
+        
+        System.out.print("The union is: ");
+        SetContainer s1OrTest = s1.union(s2);
+        s1OrTest.print();
     }
     
     

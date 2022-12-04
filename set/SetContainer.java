@@ -1,5 +1,8 @@
 package set;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class SetContainer <T extends Comparable> {
 
     private int cardinality; // the size of Set
@@ -56,26 +59,40 @@ public class SetContainer <T extends Comparable> {
      * @return the intersection of the two sets
      * @throws SetException
      */
-//    public SetContainer intersection(SetContainer set) throws SetException {
-//        SetContainer intersectionSet = new SetContainer();
-//
-//        int marker1 = 0, marker2 = 0;
-//
-//        while (marker1 < this.cardinality || marker2 < set.cardinality) {
-//            if (this.elements[marker1] < set.elements[marker2]) {
-//                marker1++;
-//            } else if (this.elements[marker1] == set.elements[marker2]) { 
-//                intersectionSet.insert(this.elements[marker1]);
-//                marker1++;
-//                marker2++;
-//            } else {
-//                marker2++;
-//            }
-//        }
-//
-//        return intersectionSet;
-//
-//    }
+    public SetContainer intersection(SetContainer set) {
+        SetContainer intersectionSet = new SetContainer();
+
+        Node<T> ref1 = this.header;
+        Node<T> ref2 = set.header;
+
+        while (ref1 != null || ref2 != null) {
+            
+            if(ref1.element == null){
+                intersectionSet.insert(ref2.element);
+                ref2 = ref2.next;
+            }
+            
+            else if(ref2.element == null){
+                intersectionSet.insert(ref1.element);
+                ref1 = ref1.next;
+            }
+            
+            else{
+                if (ref1.element.compareTo(ref2.element) < 0) {
+                     ref1 = ref1.next;
+                } else if (ref1.element.compareTo(ref2.element) == 0) { 
+                    intersectionSet.insert(ref1.element);
+                    ref1 = ref1.next;
+                    ref2 = ref2.next;
+                } else {
+                    ref2 = ref2.next;
+                }
+            }
+        }
+
+        return intersectionSet;
+
+    }
 
     /**
      * 
@@ -92,6 +109,8 @@ public class SetContainer <T extends Comparable> {
                 ref.next = new Node<>(newElement);
                 this.cardinality++;                
             }
+            
+            header = this.sort();
         }
     }
     
@@ -165,115 +184,70 @@ public class SetContainer <T extends Comparable> {
         }
         System.out.println();
     }
+    
+    private Node<T> sort(){
+        ArrayList<T> array = new ArrayList();
+        Node<T> head = this.header;
+        if(head == null || head.next == null){
+            return head;
+        }
+        else{
+            assignArray(head, array);
+            Collections.sort(array);
+
+            return node(array);
+        }
+    }
+    
+    private Node<T> node(ArrayList<T> array){
+        Node<T> answer = new Node<>();
+        nodeHelper(array, answer);
+        return answer;
+    }
+
+    private Node<T> nodeHelper(ArrayList<T> array, Node<T> answer){
+        if(array.isEmpty()){
+            return null;
+        }
+
+        if(array.size()<2){
+            answer.element = array.get(0);
+            ArrayList<T> a = fixArray(array);
+            return nodeHelper(a, null);
+        }
+        else{
+            answer.element = array.get(0);
+            ArrayList<T> a = fixArray(array);
+            answer.next = new Node<>();
+            return nodeHelper(a, answer.next);
+        }
+
+    }
+
+    private void assignArray(Node<T> head, ArrayList<T> array){
+        if(head == null){
+            return;
+        }
+
+        if(head.next == null){
+            array.add(head.element);
+            assignArray(null, array);
+        }
+        else{
+            array.add(head.element);
+            assignArray(head.next, array);
+        }
+
+    }
+
+    private ArrayList fixArray(ArrayList<T> array){
+        ArrayList<T> answer = new ArrayList<>();
+
+        for(int i = 1; i < array.size();i++){
+            answer.add(array.get(i));
+        }
+
+        return answer;
+    } 
 
 }
-
-/*
-    public SetContainer(int maxSize) {
-        this.cardinality = 0;
-        this.maxSize = maxSize;
-        this.elements = new int[maxSize];
-    }
-
-
-    public SetContainer union(SetContainer set) throws SetException {
-        SetContainer unionSet = new SetContainer(this.maxSize + set.maxSize);
-
-        int marker1 = 0, marker2 = 0;
-
-        while (marker1 < this.cardinality && marker2 < set.cardinality) {
-            if (elements[marker1] < set.elements[marker1]) {
-                unionSet.insert(elements[marker1]);
-                marker1++;
-            } else if (elements[marker1] == set.elements[marker2]) {
-                unionSet.insert(elements[marker1]);
-                marker1++;
-                marker2++;
-            } else {
-                unionSet.insert(set.elements[marker2]);
-                marker2++;
-            }
-        }
-
-        for (; marker1 < cardinality; marker1++) {
-            unionSet.insert(elements[marker1]);
-        }
-
-        for (; marker2 < set.cardinality; marker2++) {
-            unionSet.insert(set.elements[marker2]);
-        }
-
-        return unionSet;
-    }
-
-
-    public SetContainer intersection(SetContainer set) throws SetException {
-        SetContainer intersectionSet = new SetContainer(Math.min(this.cardinality, set.cardinality));
-
-        int marker1 = 0, marker2 = 0;
-
-        while (marker1 < this.cardinality || marker2 < set.cardinality) {
-            if (this.elements[marker1] < set.elements[marker2]) {
-                marker1++;
-            } else if (this.elements[marker1] == set.elements[marker2]) {
-                intersectionSet.insert(this.elements[marker1]);
-                marker1++;
-                marker2++;
-            } else {
-                marker2++;
-            }
-        }
-
-        return intersectionSet;
-
-    }
-
-
-    public void insert(int newElement) throws SetException {
-        if (cardinality >= maxSize) {
-            throw new SetException("cannot insert..set full");
-        } else if (!contains(newElement)) {
-            int marker = cardinality;
-
-            while (marker > 0 && newElement < elements[marker - 1]) {
-                elements[marker] = elements[marker - 1];
-                --marker;
-            }
-            elements[marker] = newElement;
-            cardinality++;
-        }
-    }
-
-
-    public boolean contains(int testElement) {
-        int marker;
-
-        for (marker = 0; marker < cardinality; marker++) {
-            if (testElement == elements[marker]) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    public void clear() {
-        cardinality = 0;
-    }
-
-
-    public int getCardinality() {
-        return this.cardinality;
-    }
-
-
-    public void print() {
-        for (int marker = 0; marker < cardinality; marker++) {
-            System.out.print(elements[marker] + " ");
-        }
-        System.out.println();
-    }
-
-}
-
-*/
