@@ -6,8 +6,8 @@ package set;
  */
 public class Node<T> {
      
-    private Node<T> next;
-    private T element;
+    Node<T> next;
+    T element;
     
     public Node(){
         this(null, null);
