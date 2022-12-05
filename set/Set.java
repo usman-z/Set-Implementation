@@ -23,6 +23,11 @@ public class Set {
         }
 
         s1.print();
+        
+        setIterator<Integer> itr1 = s1.first();
+        for (;itr1.hasNext();) {
+            System.out.println(itr1.next());
+        }
 
         SetContainer s2 = new SetContainer();
         try {
@@ -38,6 +43,11 @@ public class Set {
         }
 
         s2.print();
+        
+        setIterator<Integer> itr2 = s2.first();
+        for (;itr2.hasNext();) {
+            System.out.println(itr2.next());
+        }
         
         System.out.println("--------------");
         System.out.print("The intersection is: ");
