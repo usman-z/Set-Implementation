@@ -3,24 +3,16 @@ package set;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 /**
- * 
- * @author Usman
- * @param <T> is the type
+ * Set Implementation
+ * @author Usman Zia, Danial Afzal, Callie Hampton, Khawaja Waheed
  */
+
 public class SetContainer <T extends Comparable> {
 
     private int cardinality; // the size of Set
     Node<T> header; // begining referance of List
-    
-    /**
-     * Return an iterator representing the first node in the set.This operation is valid for empty lists.
-     *
-     * @return an iterator for the first element
-     */
-    public setIterator<T> first() {
-        return new setIterator<>(header);
-    }
 
     /**
      * No arg constructor
@@ -32,14 +24,22 @@ public class SetContainer <T extends Comparable> {
     
     /**
      * Arg constructor
-     *@param element is the element
+     * @param element is the element
      */    
     public SetContainer(T element) {
         this.cardinality = 1;
         header = new Node<>(element);
     }
     
-
+    /**
+     * Return an iterator representing the first node in the set.This operation is valid for empty lists.
+     *
+     * @return an iterator for the first element
+     */
+    public setIterator<T> first() {
+        return new setIterator<>(header);
+    }
+    
     /**
      *
      * @param set to take the union with
@@ -204,6 +204,25 @@ public class SetContainer <T extends Comparable> {
         }
         System.out.println();
     }
+    
+    /**
+     *  Test if the Set is empty.
+     * @return 
+     */
+    public boolean isEmpty(){
+        if(header.element == null)
+            return true;
+        
+        return false;
+    }
+    
+    /**
+     *  Make the Set logically empty.
+     */
+    public void makeEmpty() {
+        header = new Node<>(null);
+        this.cardinality = 0;
+    }    
    
     /**
      * 

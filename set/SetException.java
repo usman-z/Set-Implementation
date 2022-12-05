@@ -1,9 +1,10 @@
 package set;
 
 /**
- *
- * @author Usman
+ * Set Implementation
+ * @author Usman Zia, Danial Afzal, Callie Hampton, Khawaja Waheed
  */
+
 public class SetException extends RuntimeException {
 
     public SetException() {

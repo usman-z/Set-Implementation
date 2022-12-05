@@ -1,10 +1,10 @@
 package set;
 
 /**
- * 
- * @author Usman
- * @param <T> is the type
+ * Set Implementation
+ * @author Usman Zia, Danial Afzal, Callie Hampton, Khawaja Waheed
  */
+
 public class setIterator<T> {
 
     Node<T> current;    // Current position

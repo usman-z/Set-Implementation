@@ -1,10 +1,10 @@
 package set;
 
 /**
- * The node that will be used for the LinkedList
- *@author Usman
- * @param <T> is the type
+ * Set Implementation
+ * @author Usman Zia, Danial Afzal, Callie Hampton, Khawaja Waheed
  */
+
 public class Node<T> {
      
     Node<T> next;
@@ -32,11 +32,4 @@ public class Node<T> {
         this.next = newNext;
     }
     
-    /**
-     * 
-     * @return is the String
-     */
-    public String toString(){
-        return this.element + "";
-    }
 }
