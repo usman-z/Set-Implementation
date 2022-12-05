@@ -24,6 +24,8 @@ public class Set {
 
         s1.print();
         
+        System.out.println("\nenhanced for loop:\n");
+        
         setIterator<Integer> itr1 = s1.first();
         for (;itr1.hasNext();) {
             System.out.println(itr1.next());
@@ -43,6 +45,8 @@ public class Set {
         }
 
         s2.print();
+        
+        System.out.println("\nenhanced for loop:\n");
         
         setIterator<Integer> itr2 = s2.first();
         for (;itr2.hasNext();) {
