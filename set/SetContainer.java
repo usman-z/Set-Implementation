@@ -12,6 +12,15 @@ public class SetContainer <T extends Comparable> {
 
     private int cardinality; // the size of Set
     Node<T> header; // begining referance of List
+    
+    /**
+     * Return an iterator representing the first node in the set.This operation is valid for empty lists.
+     *
+     * @return an iterator for the first element
+     */
+    public setIterator<T> first() {
+        return new setIterator<>(header);
+    }
 
     /**
      * No arg constructor
