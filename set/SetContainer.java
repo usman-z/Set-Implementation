@@ -210,10 +210,7 @@ public class SetContainer <T extends Comparable> {
      * @return 
      */
     public boolean isEmpty(){
-        if(header.element == null)
-            return true;
-        
-        return false;
+        return header.element == null;
     }
     
     /**
@@ -225,8 +222,10 @@ public class SetContainer <T extends Comparable> {
     }    
    
     /**
-     * 
-     * @return header if null, otherwise return the sorted array
+     * This method uses the head node of any LinkedList, and returns that sorted List (i.e., the head node to that sorted list).
+     * The Sorting process is as follows: Take all the elements from the LinkedList and place them into an Array.
+     * Sort that array, and Turn that Sorted array back to a LinkedList. -> (A very tricky approach, but I,Usman Zia, came up with it for a LeetCode question)
+     * @return head node of sorted LinkedList
      */
     private Node<T> sort(){
         ArrayList<T> array = new ArrayList();
@@ -243,9 +242,9 @@ public class SetContainer <T extends Comparable> {
     }
     
     /**
-     * 
-     * @param array is the array
-     * @return is the answer
+     * This method turns elements of an array into a LinkedList.
+     * @param array, the array
+     * @return node, the head of the created LinkedList
      */
     private Node<T> node(ArrayList<T> array){
         Node<T> answer = new Node<>();
@@ -254,11 +253,11 @@ public class SetContainer <T extends Comparable> {
     }
 
     /**
-     * 
-     * @param array is the array
-     * @param answer is the answer
-     * @return is the node helper
-     */
+     *  This helper method to turn elements of an array into a LinkedList.
+     * @param array, the array
+     * @param answer, the head node of LinkedList
+     * @return node
+     */ 
     private Node<T> nodeHelper(ArrayList<T> array, Node<T> answer){
         if(array.isEmpty()){
             return null;
@@ -279,9 +278,10 @@ public class SetContainer <T extends Comparable> {
     }
 
     /**
-     * 
-     * @param head is the header
-     * @param array is the array
+     * This method take the Head node of a LinkedList, and takes takes each
+     * element from that LinkedList and places it in an Array.
+     * @param head, (to be sorted)LinkedList's head node
+     * @param array, An array, where all the elements from the list can be placed
      */
     private void assignArray(Node<T> head, ArrayList<T> array){
         if(head == null){
@@ -300,9 +300,9 @@ public class SetContainer <T extends Comparable> {
     }
 
     /**
-     * 
-     * @param array is the array
-     * @return is the answer
+     * This method cuts the first element from the array, and return that Array (used for recursion step)
+     * @param array
+     * @return array, same array without first element
      */
     private ArrayList fixArray(ArrayList<T> array){
         ArrayList<T> answer = new ArrayList<>();

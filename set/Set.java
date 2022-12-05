@@ -101,6 +101,7 @@ public class Set {
         System.out.println("");
         System.out.println("Cleared Set 1: ");
         s1.print();
+        System.out.println("Is Set 1 empty? " + s1.isEmpty());
 
         System.out.println("");
         System.out.println("-------------------");
